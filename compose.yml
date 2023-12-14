@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  php-apache:
+    build:
+      context: app
+      dockerfile: Dockerfile
+    volumes:
+      - ./app:/var/www/html
+    depends_on:
+      - mysql
+    ports:
+      - 80:80
+
+  mysql:
+    image: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: demo
+      MYSQL_USER: demo
+      MYSQL_PASSWORD: demo
+    volumes:
+      - ./mysql-data:/var/lib/mysql
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "8181:80" # Puedes cambiar el puerto según tus preferencias
+    depends_on:
+      - mysql
+
+volumes:
+  php-code:
+  mysql-data:
