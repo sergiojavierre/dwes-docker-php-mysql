@@ -6,25 +6,12 @@
     <title>Document</title>
 </head>
 <body>
+    <?php include("templates/nav.php"); ?>
+
     <?php
-        include("conexion.php");
-        if(isset($_POST["nombre"])) {
-            insertaProducto($conn, $_POST["nombre"]);
-        }
-        $productos = buscaProductos($conn);
+        include("productos/infrastructure/view/index.php");
+        
     ?>
-    <h1>Productos</h1>
-    <ul>
-        <?php
-            while($producto = $productos->fetch_assoc()) {
-                echo "<li>" . $producto["nombre"] . "</li>";
-            }
-        ?>
-    </ul>
-    <form action="index.php" method="post">
-        <label for="nombre">Nombre</label>
-        <input type="text" name="nombre" id="nombre">
-        <input type="submit" value="Enviar">
-    </form>
+    
 </body>
 </html>
